@@ -1,69 +1,69 @@
 import sys
 
-def verifica_texto(frase):
-    # is_duplicado = False
-
-    # frase_split = frase.split(" ")
-
-    # for palavra in frase_split:
-    #     palavra_temp = palavra
-    
-    #     palavra_temp_length = len(palavra_temp)
-    #     for i in range(0,palavra_temp_length):
-    #         print(palavra_temp[i:palavra_temp_length])
-    #         if(palavra_temp[i:palavra_temp_length] in palavra):
-    #             x = palavra.replace(palavra_temp[i:palavra_temp_length],"")
-    #             if(palavra_temp in x):
-    #                 print("Duplicado")
-    #             else:
-    #                 print("Não duplicado")
+def compara_palavra(subtring_a , subtring_b):
+    menor_tamanho = min(len(subtring_a),len(subtring_b))
+    for i in range(0,menor_tamanho):
+        if((subtring_a[i] != subtring_b[i])):
+            return subtring_a[0:i]
+    else:
+        return subtring_a[0:menor_tamanho]
 
 
-    # #print(x[1:len(x):])
-    # for palavra in frase_split:
-    #     print("texto: " + palavra)
-    #     print("tamanho: " + str(len(palavra)))
-    #     for i in range(1,len(palavra)):
-    #         print("index: " + str(i))
-    #         palavra_slice = palavra[i:len(palavra)]
-    #         print(palavra_slice)
-    #         # print(str[:n])
+def verifica_final_duplicado(entrada):
+    entrada_split = entrada.split(" ")
+    lista_finais_duplicados = []
 
+    for palavra in entrada_split:
+        maior_substring = ""
+        tamanho_palavra = len(palavra)
+        for i in range(0,tamanho_palavra):
+            for j in range(i+1, tamanho_palavra):
+                return_compara_palavra = compara_palavra(palavra[i:tamanho_palavra],palavra[j:tamanho_palavra])    
 
-    frase_split = frase.split(" ")
+                if(len(return_compara_palavra) > len(maior_substring)):
+                    palavra_temp = palavra[i:tamanho_palavra].replace(return_compara_palavra,"",1)
+                    if(return_compara_palavra in palavra_temp):
+                        maior_substring = return_compara_palavra
+        lista_finais_duplicados.append(maior_substring)
+                    
+    return lista_finais_duplicados
 
-    for palavra in frase_split:
+def remove_duplicacao(entrada,lista_finais_duplicados):
+    entrada_split = entrada.split(" ")
+    entrada_sem_duplicacao = ''
+    for i in range(0,len(entrada_split)):
+        if(lista_finais_duplicados[i] == ''):
+            entrada_sem_duplicacao = entrada + "."
+            break
 
-        palavra_length = len(palavra)
+        entrada_sem_duplicacao = entrada_sem_duplicacao + entrada_split[i].replace(lista_finais_duplicados[i],"",1)
+        if(i < len(entrada_split)-1):
+            entrada_sem_duplicacao = entrada_sem_duplicacao + " "
+        else:
+            entrada_sem_duplicacao = entrada_sem_duplicacao + "."
 
-        for i in range(palavra_length):
-            
-
-
-    
-
-
-    
-    return is_duplicado
-
-def remove_duplicacao(frase):
-    pass
+    return entrada_sem_duplicacao
 
 
 
 def main():
-    # entrada = str(input())
-    entrada = "oo ratoato roeuoeu aa roupaoupa dodo reiei dee romaoma"
-    verifica_texto(entrada)
 
-    print(entrada)
+    # entrada = "oo ratoato roeuoeu aa roupaoupa dodo reiei dee romaoma"
+    # entrada = "a bananeira tem banana"
+    # entrada = "banana"
+
+    entrada = input()
+
+    lista_finais_duplicados = verifica_final_duplicado(entrada)
+    entrada_sem_duplicacao = remove_duplicacao(entrada,lista_finais_duplicados)
+    print(entrada_sem_duplicacao)
+
+
+    
 
 
 main()
 
 
-
-
-x = "ratoato"
 
 
