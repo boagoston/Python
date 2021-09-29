@@ -1,0 +1,2 @@
+string = "banana"
+x = uniq
